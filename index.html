@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1 class="text-light fw-bold">Weather Dashboard</h1>
+    </header>
+    <div class="container-fluid">
+        <div class="row p-0 align-items-start">
+            <aside id="search" class="col-2">
+                <h2 class="fw-bold mb-3" id="search-title">Search for a City:</h2>
+                <div class="d-grid gap-2" id="search-form">
+                    <input type="search" name="city-search" id="search-bar" class="form-control" placeholder="Search">
+                    <button class="btn btn-info btn-block mb-2" id="search-button">Search</button>
+                </div>
+                <div id="saved-cities" class="d-grid gap-2">
+                    <button class="btn btn-secondary mt-1">Kansas City</button>
+                </div>
+            </aside>
+            <section class="col-10 flex-shrink-0 p-0">
+                <div id="today-forecast">
+                    <h2 id="city-name" class="mt-1 fw-bold"></h2> 
+                    <img src="" alt="" id="today-icon">
+                    <p>Temp: <span id="today-temp"></span><span>F</span></p>
+                    <p>Wind: <span id="today-wind"></span><span>MPH</span></p>
+                    <p>Humidity: <span id="today-humidity"></span><span>%</span></p>
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <section class="col-9 p-0">
+                            <h3 class="mt-2 ms-3 fw-semibold">5-Day Forecast:</h3>
+                        <div class="container-fluid p-0">
+                            <div class="row ms-3" id="fiveday-forecast">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
