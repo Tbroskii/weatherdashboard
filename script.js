@@ -13,8 +13,8 @@ function handleSavedCity(event){
     var btnClicked = $(event.target);
     city  = btnClicked.attr('id');
     //setting up api query urls
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey+"&units=imperial";
-    var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey +"&units=imperial";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey+"&units=imperial";
+    var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey +"&units=imperial";
     var icon = "";
 
     fetch(queryURL)
@@ -83,8 +83,8 @@ function loadSavedCities() {
 //
 function findCity (){//most of this is the same as the function above reference that for comments. anything different between the two will have corresponding comments
     city  = $('#search-bar').val();//get value of search bar for city
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey+"&units=imperial";
-    var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey +"&units=imperial";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey+"&units=imperial";
+    var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey +"&units=imperial";
     var icon = "";
     var savedCitiesHTML = document.getElementById('saved-cities');
 
