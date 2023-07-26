@@ -5,6 +5,7 @@ var search = $('#search-button');
 var clear = $('#clear-button');
 var city = "";
 var savedCityBlock = $('#saved-cities');
+var todayJS = dayjs().format('M/D/YYYY');
 
 //function creation secition
 function handleSavedCity(event){
@@ -23,7 +24,7 @@ function handleSavedCity(event){
         }
         })
         .then(function (data){
-            $('#city-name').text(city);//set today city
+            $('#city-name').text(city + "   "+todayJS);//set today city
             $('#today-temp').text(data.main.temp);//set today temp
             $('#today-wind').text(data.wind.speed);//set today wind speed
             $('#today-humidity').text(data.main.humidity);//set today humidity
@@ -41,7 +42,7 @@ function handleSavedCity(event){
             for (var i = 1; i < 34; i++)//loop through array of data to pull
             {
                 var day = data.list[i];
-                if (i === 1 || i === 9 || i === 17 || i === 25 || i === 33){//the api returns multiple different hours per day. this is used to make sure we get 
+                if (i === 2 || i === 9 || i === 17 || i === 25 || i === 33){//the api returns multiple different hours per day. this is used to make sure we get 
                 icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`; //getting icon
                 var formatDate = dayjs(day.dt_txt).format('M/D/YYYY'); //formatting date
                     //this creates a new day
@@ -96,7 +97,7 @@ function findCity (){//most of this is the same as the function above reference 
         }
         })
         .then(function (data){
-            $('#city-name').text(city);
+            $('#city-name').text(city  + "   "+todayJS);
             $('#today-temp').text(data.main.temp);
             $('#today-wind').text(data.wind.speed);
             $('#today-humidity').text(data.main.humidity);
@@ -110,11 +111,12 @@ function findCity (){//most of this is the same as the function above reference 
         })
         .then(function(data){
             var forecast = document.getElementById('fiveday-forecast');
+            console.log(data);
             forecast.innerHTML = "";
             for (var i = 1; i < 34; i++)
             {
                 var day = data.list[i];
-                if (i === 1 || i === 9 || i === 17 || i === 25 || i === 33){
+                if (i === 2 || i === 9 || i === 17 || i === 25 || i === 33){
                 icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
                 var formatDate = dayjs(day.dt_txt).format('M/D/YYYY')
 
