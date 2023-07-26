@@ -111,7 +111,6 @@ function findCity (){//most of this is the same as the function above reference 
         })
         .then(function(data){
             var forecast = document.getElementById('fiveday-forecast');
-            console.log(data);
             forecast.innerHTML = "";
             for (var i = 1; i < 34; i++)
             {
