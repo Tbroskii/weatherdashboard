@@ -8,14 +8,13 @@ var savedCityBlock = $('#saved-cities');
 
 //function creation secition
 function handleSavedCity(event){
+    //when saved city button is clicked this will pull id from the button which is the city name. Then it will use that to query the api
     var btnClicked = $(event.target);
     city  = btnClicked.attr('id');
-
+    //setting up api query urls
     var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey+"&units=imperial";
     var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey +"&units=imperial";
     var icon = "";
-
-    $('#search-bar').val("");
 
     fetch(queryURL)
         .then(function(response){
@@ -24,13 +23,12 @@ function handleSavedCity(event){
         }
         })
         .then(function (data){
-            $('#city-name').text(city);
-            $('#today-temp').text(data.main.temp);
-            $('#today-wind').text(data.wind.speed);
-            $('#today-humidity').text(data.main.humidity);
-            icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+            $('#city-name').text(city);//set today city
+            $('#today-temp').text(data.main.temp);//set today temp
+            $('#today-wind').text(data.wind.speed);//set today wind speed
+            $('#today-humidity').text(data.main.humidity);//set today humidity
+            icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;//set today icon
             $('#today-icon').attr('src', icon);
-            apiConnected = true;
         })
   
         fetch(forecastURL)
@@ -38,15 +36,15 @@ function handleSavedCity(event){
             return response.json();
         })
         .then(function(data){
-            var forecast = document.getElementById('fiveday-forecast');
-            forecast.innerHTML = "";
-            for (var i = 1; i < 34; i++)
+            var forecast = document.getElementById('fiveday-forecast');//get five day forecast section
+            forecast.innerHTML = ""; //clear forecast if anything was alredy in there
+            for (var i = 1; i < 34; i++)//loop through array of data to pull
             {
                 var day = data.list[i];
-                if (i === 1 || i === 9 || i === 17 || i === 25 || i === 33){
-                icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
-                var formatDate = dayjs(day.dt_txt).format('M/D/YYYY')
-
+                if (i === 1 || i === 9 || i === 17 || i === 25 || i === 33){//the api returns multiple different hours per day. this is used to make sure we get 
+                icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`; //getting icon
+                var formatDate = dayjs(day.dt_txt).format('M/D/YYYY'); //formatting date
+                    //this creates a new day
                     var newDay = `<div id="day-of-week" class="col-2 me-4">
                     <p id="future-day">${formatDate}</p>
                     <img src="${icon}" alt="" id="future-icon">
@@ -54,42 +52,42 @@ function handleSavedCity(event){
                     <p>Wind: <span id="future-wind">${day.wind.speed}</span><span>MPH</span></p>
                     <p>Humidity: <span id="future-humidity">${day.main.humidity}</span><span>%</span></p>
                 </div>`;
-                forecast.innerHTML += newDay;
+                forecast.innerHTML += newDay;//adds the new day onto forecast
                 }
             }
         })
 }
 
-
+//function to create a new button
 function createNewButton(cityName){
     return `<button class="btn btn-secondary mt-1 savedCity" id="${cityName}">${cityName}</button>`;
 }
 
-
+//function to load cities from the local storage
 function loadSavedCities() {
     var savedCities = JSON.parse(localStorage.getItem('SavedCities'));
-
     var savedCitiesHTML = document.getElementById('saved-cities');
     
-    if (localStorage.getItem('SavedCities') === null)
+    if (localStorage.getItem('SavedCities') === null)// wont run if there is nothing in local storage
     {
         return
     }
 
-    for (var i = 0; i < savedCities.length; i++)
+    for (var i = 0; i < savedCities.length; i++) //make buttons and appened to html for all items within local storage
     {
         savedCitiesHTML.innerHTML += savedCities[i];
     }
 }
 
-function findCity (){
-    city  = $('#search-bar').val();
+//
+function findCity (){//most of this is the same as the function above reference that for comments. anything different between the two will have corresponding comments
+    city  = $('#search-bar').val();//get value of search bar for city
     var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey+"&units=imperial";
     var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey +"&units=imperial";
     var icon = "";
     var savedCitiesHTML = document.getElementById('saved-cities');
 
-    $('#search-bar').val("");
+    $('#search-bar').val("");//clear search bar
 
     fetch(queryURL)
         .then(function(response){
@@ -104,7 +102,6 @@ function findCity (){
             $('#today-humidity').text(data.main.humidity);
             icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
             $('#today-icon').attr('src', icon);
-            apiConnected = true;
         })
   
         fetch(forecastURL)
@@ -133,8 +130,9 @@ function findCity (){
             }
         })
 
-        savedCitiesHTML.innerHTML += createNewButton(city);
+        savedCitiesHTML.innerHTML += createNewButton(city);// create button and appened to list of cities stored
 
+        //add the city to local storage
         if (localStorage.getItem('SavedCities') === null)
         {
             var cities = [];
@@ -151,6 +149,7 @@ function findCity (){
 
 }
 
+//function to clear local storage and all buttons currently saved
 function clearLocalStorage(){
     localStorage.clear();
     savedCityBlock.html('');
