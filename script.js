@@ -39,10 +39,10 @@ function handleSavedCity(event){
         .then(function(data){
             var forecast = document.getElementById('fiveday-forecast');//get five day forecast section
             forecast.innerHTML = ""; //clear forecast if anything was alredy in there
-            for (var i = 1; i < 34; i++)//loop through array of data to pull
+            for (var i = 1; i < 35; i++)//loop through array of data to pull
             {
                 var day = data.list[i];
-                if (i === 2 || i === 9 || i === 17 || i === 25 || i === 33){//the api returns multiple different hours per day. this is used to make sure we get 
+                if (i === 2 || i === 10 || i === 18 || i === 26 || i === 34){//the api returns multiple different hours per day. this is used to make sure we get 
                 icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`; //getting icon
                 var formatDate = dayjs(day.dt_txt).format('M/D/YYYY'); //formatting date
                     //this creates a new day
@@ -111,13 +111,14 @@ function findCity (){//most of this is the same as the function above reference 
         })
         .then(function(data){
             var forecast = document.getElementById('fiveday-forecast');
+            console.log(data)
             forecast.innerHTML = "";
-            for (var i = 1; i < 34; i++)
+            for (var i = 1; i < 35; i++)
             {
                 var day = data.list[i];
-                if (i === 2 || i === 9 || i === 17 || i === 25 || i === 33){
+                if (i === 2 || i === 10 || i === 18 || i === 26 || i === 34){
                 icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
-                var formatDate = dayjs(day.dt_txt).format('M/D/YYYY')
+                var formatDate = dayjs(day.dt_txt).format('M/D/YYYY');
 
                     var newDay = `<div id="day-of-week" class="col-2 me-4">
                     <p id="future-day">${formatDate}</p>
